@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme inline {
+    /* TODO: Fonts */
+}
+
+@theme {
+    /* TODO: Colors */
+}
+
+@layer base {
+    /* TODO: Base overrides */
+}

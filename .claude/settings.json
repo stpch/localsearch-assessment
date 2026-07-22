@@ -1,0 +1,13 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(npm:*)",
+            "Bash(find:*)",
+            "WebSearch",
+            "WebFetch",
+            "Read(./**)",
+            "Edit(./**)",
+            "Write(./**)"
+        ]
+    }
+}
