@@ -1,0 +1,10 @@
+*.log
+*.tsbuildinfo
+.env*
+/.claude
+/.git
+/.next
+/.swc
+/coverage
+/node_modules
+next-env.d.ts
