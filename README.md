@@ -2,6 +2,8 @@
 
 Technical assessment for full-stack role at localsearch.ch.
 
+Demo: https://localsearch-assessment-1076707828621.europe-west6.run.app
+
 ## Getting started
 
 1. Set up Node.js v24
@@ -47,3 +49,8 @@ and autoformatted with Stylelint.
 Jest tests are collocated with the tested files. Global test configuration and
 mocks reside in `src/lib/__tests__`. Test coverage can be reported to console
 and written to file with `npm run test:coverage`.
+
+## Deployment
+
+On push, the GitHub Actions workflow `.github/workflows/deploy.yaml` is
+triggerd, running QA, building the Docker image and deploying to GCP.
