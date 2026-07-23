@@ -8,8 +8,8 @@ interface QueryParams {
 
 const getAll = (params: QueryParams = {}): User[] => {
     const orderBy = params.orderBy === 'desc' ? 'DESC' : 'ASC'
-    const limit = params.limit ?? -1
-    const offset = params.offset ?? 0
+    const limit = params.limit || -1
+    const offset = params.offset || 0
 
     const statement = db.prepare<[number, number], User>(`
         SELECT
