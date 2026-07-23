@@ -4,8 +4,8 @@ FROM node:24-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-# Sometimes needed for native dependencies
-RUN apk add --no-cache libc6-compat
+# Needed to compile native dependencies (better-sqlite3) from source on Alpine
+RUN apk add --no-cache libc6-compat python3 make g++
 
 COPY package.json package-lock.json ./
 RUN npm ci
