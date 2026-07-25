@@ -7,7 +7,7 @@ interface QueryParams {
     orderBy?: 'asc' | 'desc'
 }
 
-const getAll = (params: QueryParams = {}): User[] => {
+const findMany = (params: QueryParams = {}) => {
     const orderBy = params.orderBy === 'desc' ? 'DESC' : 'ASC'
     const limit = params.limit || -1
     const offset = params.offset || 0
@@ -23,7 +23,15 @@ const getAll = (params: QueryParams = {}): User[] => {
         LIMIT ? OFFSET ?
     `)
 
-    return statement.all(limit, offset)
+    const totalStatement = db.prepare<[], { total: number }>(`
+        SELECT COUNT(*) AS total
+        FROM users
+    `)
+
+    return {
+        data: statement.all(limit, offset),
+        total: totalStatement.get()?.total ?? 0,
+    }
 }
 
-export default { getAll }
+export default { findMany }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import userQueries from '@/lib/db/queries/userQueries'
+import userRepository from '@/lib/db/repositories/userRepository'
 
 export const GET = async (request: NextRequest) => {
     const orderBy =
@@ -7,7 +7,7 @@ export const GET = async (request: NextRequest) => {
     const limit = Number(request.nextUrl.searchParams.get('limit'))
     const offset = Number(request.nextUrl.searchParams.get('offset'))
 
-    const users = userQueries.getAll({ limit, offset, orderBy })
+    const users = userRepository.findMany({ limit, offset, orderBy })
 
-    return NextResponse.json(users)
+    return NextResponse.json({ data: users.data, total: users.total })
 }

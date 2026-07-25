@@ -12,6 +12,14 @@
 * **Braces:** Always wrap the body of `if`, `else`, `for`, `while`, and similar
   constructs in curly braces, even when the body is a single statement.
 * **Comments:**
+  * Write almost none. Names and structure should carry the meaning, and
+    anything already settled in conversation does not need restating in the
+    code. Never narrate what a line does. Reserve a comment for the rare case
+    where the code cannot express *why* it is written that way — a workaround,
+    a non-obvious constraint, a deliberate deviation. When one is warranted,
+    give it the length the explanation genuinely needs, no more. When in doubt,
+    leave it out.
+  * The rules below apply to comments that survive that test:
   * Line comments (`//`) should start capitalized. After prefixes like `TODO:` the
     text should also be capitalized. Code references (e.g. variable or property
     names) should always keep their original casing. Short comments should not
@@ -24,6 +32,10 @@
     punctuation.
 * **Components:** Type all components using React's `FC`: use `FC` for
   components without props and `FC<Props>` for components that accept props.
+  Generic components are the exception: `FC<Props<T>>` demands a concrete `T`,
+  so annotating one would pin the type parameter and defeat the inference the
+  generic exists for. Write them as a plain generic arrow function
+  (`const Table = <T,>(props: Props<T>) => …`).
 * **Error variables:** Name caught errors `error`, not `e` or `err`.
 * **Event handlers:** Name a function after the event it responds to, prefixed
   with `on` (e.g. `onResize`, `onMouseDown`, `onClick`), only when the event is
@@ -48,6 +60,10 @@
   variable with the same name (`const color = props.color ?? 'red'`).
   Destructuring is only acceptable in the rare cases where it is otherwise
   impossible (e.g. computing a rest spread).
+* **Return types:** Leave them to inference. This is the default everywhere —
+  functions, components, hooks, utilities — not a concession made in awkward
+  cases. Annotate only when inference genuinely cannot produce the right type,
+  never to restate what TypeScript already knows.
 * **Returning undefined:** Use bare `return` instead of `return undefined` where
   possible.
 * **Styling:** Default to Tailwind utility classes. Only use CSS modules
@@ -59,8 +75,7 @@
     them inside one another. Nesting is only for rules that target a class in
     relation to its parent, such as `:hover`, `:focus`, and other selectors
     scoped to that parent (e.g. `.root:hover`, `.root .icon`).
-* **Type safety:** Strict TypeScript mode is enabled. Avoid `any`. Only specify
-  return types explicitly when TypeScript cannot infer them.
+* **Type safety:** Strict TypeScript mode is enabled. Avoid `any`.
 
 ## Shell commands
 
@@ -80,3 +95,9 @@ ensure quality and consistency:
 
 Verify changes exclusively through these commands. Never start the dev server
 or otherwise run the app to check a change, even for UI work.
+
+Do not write throwaway files to prove something works — no scratch components,
+no temporary type assertions, no one-off scripts, whether inside the project or
+outside it. The commands above are the only accepted verification. If they pass,
+the change is verified; if something can only be proven by extra scaffolding,
+say so instead of building it.

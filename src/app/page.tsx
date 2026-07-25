@@ -1,33 +1,18 @@
 // istanbul ignore file
 import '@/lib/db'
-import { FC } from 'react'
-import userQueries from '@/lib/db/queries/userQueries'
+import UsersTable from '@/containers/usersTable'
+import { dataTableDefaultLimit } from '@/lib/constants'
 
-const HomePage: FC = () => {
-    const users = userQueries.getAll()
+interface Props {
+    searchParams: Promise<Record<string, string | string[] | undefined>>
+}
 
-    return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map(user => (
-                        <tr key={user.id}>
-                            <th>{user.firstName}</th>
-                            <th>{user.lastName}</th>
-                            <th>{user.email}</th>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    )
+const HomePage = async (props: Props) => {
+    const searchParams = await props.searchParams
+    const limit = Number(searchParams.limit) || dataTableDefaultLimit
+    const offset = Number(searchParams.offset) || 0
+
+    return <UsersTable limit={limit} offset={offset} />
 }
 
 export default HomePage

@@ -46,7 +46,7 @@ const insertRandomData = () => {
         }
     })
 
-    insertUsers(faker.number.int({ max: 200, min: 100 }))
+    insertUsers(faker.number.int({ max: 1000, min: 300 }))
 }
 
 if (!global._db) {
