@@ -6,8 +6,7 @@
             "WebSearch",
             "WebFetch",
             "Read(./**)",
-            "Edit(./**)",
-            "Write(./**)"
+            "Edit(./**)"
         ]
     }
 }
