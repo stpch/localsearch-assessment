@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 @theme inline {
-    /* TODO: Fonts */
+    --font-sans: var(--font-panton);
 }
 
 @theme {
-    /* TODO: Colors */
+    --color-primary: #005e6e;
+    --color-primary-light: #ccdfe2;
+    --color-secondary: #b03f19;
+    --color-secondary-light: #efd9d1;
 }
 
 @layer base {
-    /* TODO: Base overrides */
+    body {
+        color: #000;
+        background: #fff
+            radial-gradient(80vw 80dvh, #fff 60%, var(--color-primary-light))
+            no-repeat fixed;
+    }
 }

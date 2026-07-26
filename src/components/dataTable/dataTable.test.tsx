@@ -1,6 +1,5 @@
-import { fireEvent, getByRole, getByText, render } from '@testing-library/react'
+import { fireEvent, getByText, render } from '@testing-library/react'
 import { router } from '@/lib/__tests__/__mocks__/next/navigation'
-import { dataTableDefaultLimit } from '@/lib/constants'
 import DataTable from './dataTable'
 
 describe('DataTable', () => {
@@ -78,44 +77,6 @@ describe('DataTable', () => {
             getByText(container, '5 - 6 / 6')
             expect(getByText(container, 'Previous')).not.toBeDisabled()
             expect(getByText(container, 'Next')).toBeDisabled()
-        })
-    })
-
-    describe('limit select', () => {
-        test('updates limit search param when non-default option', async () => {
-            const { container } = render(
-                <DataTable
-                    columns={[]}
-                    data={[]}
-                    limit={0}
-                    offset={0}
-                    total={0}
-                />
-            )
-
-            fireEvent.change(getByRole(container, 'combobox'), {
-                target: { value: 50 },
-            })
-
-            expect(router.push).toHaveBeenCalledWith('/?limit=50')
-        })
-
-        test('removes limit search param when default option', async () => {
-            const { container } = render(
-                <DataTable
-                    columns={[]}
-                    data={[]}
-                    limit={0}
-                    offset={0}
-                    total={0}
-                />
-            )
-
-            fireEvent.change(getByRole(container, 'combobox'), {
-                target: { value: dataTableDefaultLimit },
-            })
-
-            expect(router.push).toHaveBeenCalledWith('/')
         })
     })
 

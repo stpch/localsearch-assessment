@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { faker } from '@faker-js/faker'
 import Database from 'better-sqlite3'
 

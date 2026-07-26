@@ -2,12 +2,16 @@ import { faker } from '@faker-js/faker'
 import { FC } from 'react'
 import DataTable from '@/components/dataTable'
 import userRepository from '@/lib/db/repositories/userRepository'
-import { DataTablePageProps } from '@/lib/types'
 
-const UsersTableLoader: FC<DataTablePageProps> = async props => {
+interface Props {
+    limit: number
+    offset: number
+}
+
+const UsersTableLoader: FC<Props> = async props => {
     // Artifical delay to simulate querying external database
     await new Promise(resolve =>
-        setTimeout(resolve, faker.number.int({ max: 300, min: 50 }))
+        setTimeout(resolve, faker.number.int({ max: 300, min: 150 }))
     )
 
     const users = userRepository.findMany(props)
