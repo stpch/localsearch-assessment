@@ -1,4 +1,9 @@
-import { fireEvent, getByText, render } from '@testing-library/react'
+import {
+    fireEvent,
+    getByText,
+    queryByText,
+    render,
+} from '@testing-library/react'
 import { router } from '@/lib/__tests__/__mocks__/next/navigation'
 import DataTable from './dataTable'
 
@@ -77,6 +82,41 @@ describe('DataTable', () => {
             getByText(container, '5 - 6 / 6')
             expect(getByText(container, 'Previous')).not.toBeDisabled()
             expect(getByText(container, 'Next')).toBeDisabled()
+        })
+    })
+
+    describe('no results overlay', () => {
+        test('is rendered when no data', async () => {
+            const { container } = render(
+                <DataTable<{ name: string }>
+                    columns={[{ accessor: 'name', label: 'Name' }]}
+                    data={[]}
+                    limit={2}
+                    offset={0}
+                    total={0}
+                />
+            )
+
+            getByText(container, 'No results')
+            expect(getByText(container, 'Previous')).toBeDisabled()
+            expect(getByText(container, 'Next')).toBeDisabled()
+        })
+
+        test('is not rendered when data', async () => {
+            const { container } = render(
+                <DataTable
+                    columns={[{ accessor: 'name', label: 'Name' }]}
+                    data={[
+                        { id: 1, name: 'Foo' },
+                        { id: 2, name: 'Bar' },
+                    ]}
+                    limit={2}
+                    offset={0}
+                    total={6}
+                />
+            )
+
+            expect(queryByText(container, 'No results')).toBeNull()
         })
     })
 

@@ -5,6 +5,7 @@ import UsersTableLoader from './usersTableLoader'
 interface Props {
     limit: number
     offset: number
+    searchQuery?: string
 }
 
 const UsersTable: FC<Props> = props => (

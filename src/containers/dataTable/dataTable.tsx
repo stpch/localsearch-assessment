@@ -1,11 +1,12 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ReactNode, useEffect, useRef, useTransition } from 'react'
+import { ReactNode, useEffect, useRef, useState, useTransition } from 'react'
 import Button from '@/components/button'
 import Input from '@/components/input'
 import LoadingOverlay from '@/components/loadingOverlay'
 import classNames from '@/lib/utils/classNames'
+import debounce from '@/lib/utils/debounce'
 
 type Accessor<T> = {
     [K in keyof T]: T[K] extends ReactNode ? K : never
@@ -23,6 +24,7 @@ interface Props<T> {
     data: Array<Item<T>>
     limit: number
     offset: number
+    searchQuery?: string
     total: number
 }
 
@@ -30,6 +32,7 @@ const DataTable = <T,>(props: Props<T>) => {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '')
     const [pending, startTransition] = useTransition()
     const scrollAreaRef = useRef<HTMLDivElement>(null)
 
@@ -48,7 +51,7 @@ const DataTable = <T,>(props: Props<T>) => {
         })
     }
 
-    const updateOffset = (offset: number) => {
+    const updateOffsetParam = (offset: number) => {
         const params = new URLSearchParams(searchParams)
 
         if (offset > 0) {
@@ -60,17 +63,39 @@ const DataTable = <T,>(props: Props<T>) => {
         updateSearchParams(params)
     }
 
+    const updateSearchQueryParam = debounce((q: string) => {
+        const params = new URLSearchParams(searchParams)
+
+        if (q.length) {
+            params.set('q', q)
+        } else {
+            params.delete('q')
+        }
+
+        params.delete('offset')
+
+        updateSearchParams(params)
+    }, 200)
+
     const onPreviousClick = () => {
-        updateOffset(Math.max(props.offset - props.limit, 0))
+        updateOffsetParam(Math.max(props.offset - props.limit, 0))
     }
 
     const onNextClick = () => {
-        updateOffset(props.offset + props.limit)
+        updateOffsetParam(props.offset + props.limit)
     }
 
     return (
         <div className="flex h-full flex-col gap-4">
-            <Input placeholder="Search by name or email ..." />
+            <Input
+                name="q"
+                onChange={e => {
+                    setSearchQuery(e.currentTarget.value)
+                    updateSearchQueryParam(e.currentTarget.value)
+                }}
+                placeholder="Search by name or email ..."
+                value={searchQuery}
+            />
             <div
                 className={classNames(
                     'border-primary-light relative flex min-h-0 flex-1',
@@ -78,6 +103,15 @@ const DataTable = <T,>(props: Props<T>) => {
                     'shadow-[0px_4px_14px_0px_rgba(0,0,0,0.05)]'
                 )}
             >
+                {!props.data.length && (
+                    <div
+                        className={classNames(
+                            'absolute inset-0 z-10 flex items-center justify-center text-3xl text-neutral-300 sm:text-4xl'
+                        )}
+                    >
+                        No results
+                    </div>
+                )}
                 <LoadingOverlay visible={pending} />
                 <div
                     ref={scrollAreaRef}
