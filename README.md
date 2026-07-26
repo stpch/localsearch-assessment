@@ -1,4 +1,4 @@
-# localsearch-assessment
+# localsearch-assessment [![codecov](https://codecov.io/gh/stpch/localsearch-assessment/graph/badge.svg?token=Q6dBq1KaH0)](https://codecov.io/gh/stpch/localsearch-assessment)
 
 Technical assessment for full-stack role at localsearch.ch.
 
