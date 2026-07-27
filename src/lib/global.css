@@ -5,6 +5,9 @@
 }
 
 @theme {
+    --default-transition-timing-function: ease-out;
+    --default-transition-duration: 200ms;
+
     --color-primary: #005e6e;
     --color-primary-light: #ccdfe2;
     --color-secondary: #b03f19;

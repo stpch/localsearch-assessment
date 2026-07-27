@@ -51,4 +51,4 @@ and written to file with `npm run test:coverage`.
 ## Deployment
 
 On push, the GitHub Actions workflow `.github/workflows/deploy.yaml` is
-triggerd, running QA, building the Docker image and deploying to GCP.
+triggered, running QA, building the Docker image and deploying to GCP.

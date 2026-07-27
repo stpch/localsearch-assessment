@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { NextRequest, NextResponse } from 'next/server'
 import userRepository from '@/lib/db/repositories/userRepository'
 

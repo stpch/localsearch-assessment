@@ -10,7 +10,7 @@ const LoadingOverlay: FC<Props> = props => (
     <div
         className={classNames(
             'absolute inset-0 z-10 flex items-center justify-center',
-            'bg-white/75 transition-[opacity,visibility] duration-200 ease-out',
+            'bg-white/75 transition-[opacity,visibility]',
             props.visible ? 'opacity-100' : 'invisible opacity-0',
             props.className
         )}
