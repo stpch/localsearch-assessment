@@ -1,14 +1,18 @@
 // istanbul ignore file
+import { faker } from '@faker-js/faker'
 import { NextRequest, NextResponse } from 'next/server'
 import userRepository from '@/lib/db/repositories/userRepository'
+import parseQueryParams from '@/lib/utils/parseQueryParams'
 
 export const GET = async (request: NextRequest) => {
-    const orderBy =
-        request.nextUrl.searchParams.get('orderBy') === 'desc' ? 'desc' : 'asc'
-    const limit = Number(request.nextUrl.searchParams.get('limit'))
-    const offset = Number(request.nextUrl.searchParams.get('offset'))
+    // Artificial delay to simulate slightly slower external service
+    await new Promise(resolve =>
+        setTimeout(resolve, faker.number.int({ max: 250, min: 100 }))
+    )
 
-    const users = userRepository.findMany({ limit, offset, orderBy })
+    const users = userRepository.findMany(
+        parseQueryParams(request.nextUrl.searchParams)
+    )
 
-    return NextResponse.json({ data: users.data, total: users.total })
+    return NextResponse.json(users)
 }

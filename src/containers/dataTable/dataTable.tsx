@@ -32,7 +32,7 @@ const DataTable = <T,>(props: Props<T>) => {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '')
+    const [searchQuery, setSearchQuery] = useState(props.searchQuery ?? '')
     const [pending, startTransition] = useTransition()
     const scrollAreaRef = useRef<HTMLDivElement>(null)
 
@@ -75,7 +75,7 @@ const DataTable = <T,>(props: Props<T>) => {
         params.delete('offset')
 
         updateSearchParams(params)
-    }, 200)
+    }, 300)
 
     const onPreviousClick = () => {
         updateOffsetParam(Math.max(props.offset - props.limit, 0))
@@ -106,7 +106,9 @@ const DataTable = <T,>(props: Props<T>) => {
                 {!props.data.length && (
                     <div
                         className={classNames(
-                            'absolute inset-0 z-10 flex items-center justify-center text-3xl text-neutral-300 sm:text-4xl'
+                            'absolute inset-0 z-10 flex items-center',
+                            'justify-center text-3xl text-neutral-300',
+                            'sm:text-4xl'
                         )}
                     >
                         No results
@@ -126,7 +128,7 @@ const DataTable = <T,>(props: Props<T>) => {
                                         className={classNames(
                                             'bg-primary-light text-primary',
                                             'sticky top-0 z-20 px-4 py-2',
-                                            'text-left'
+                                            'text-left text-nowrap'
                                         )}
                                     >
                                         {column.label}
@@ -140,7 +142,7 @@ const DataTable = <T,>(props: Props<T>) => {
                                     key={item.id}
                                     className={classNames(
                                         'hover:bg-secondary-light/50',
-                                        'odd:bg-gray-50'
+                                        'bg-white/50 odd:bg-gray-100/50'
                                     )}
                                 >
                                     {props.columns.map(column => (

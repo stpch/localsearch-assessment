@@ -1,16 +1,8 @@
 // istanbul ignore file
 import db from '@/lib/db'
-import { User } from '@/lib/types'
-
-interface QueryParams {
-    limit?: number
-    offset?: number
-    orderBy?: 'asc' | 'desc'
-    searchQuery?: string
-}
+import { QueryParams, User } from '@/lib/types'
 
 const findMany = (params: QueryParams = {}) => {
-    const orderBy = params.orderBy === 'desc' ? 'DESC' : 'ASC'
     const limit = params.limit || -1
     const offset = params.offset || 0
     const searchQuery = params.searchQuery?.trim()
@@ -27,7 +19,7 @@ const findMany = (params: QueryParams = {}) => {
             email
         FROM users
         ${where}
-        ORDER BY first_name ${orderBy}
+        ORDER BY first_name, last_name, id
         LIMIT ? OFFSET ?
     `)
 

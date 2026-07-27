@@ -1,26 +1,34 @@
 // istanbul ignore file
-import '@/lib/db'
 import GitHubIcon from '@/components/gitHubIcon'
-import UsersTable from '@/containers/usersTable'
+import UserTable from '@/containers/userTable'
+import { SearchParams } from '@/lib/types'
 import classNames from '@/lib/utils/classNames'
+import parseQueryParams from '@/lib/utils/parseQueryParams'
 
 interface Props {
-    searchParams: Promise<Record<string, string | string[] | undefined>>
+    searchParams: Promise<SearchParams>
 }
 
 const HomePage = async (props: Props) => {
-    const searchParams = await props.searchParams
-    const offset = Number(searchParams.offset) || 0
-    const searchQuery =
-        typeof searchParams.q === 'string' ? searchParams.q : undefined
+    const queryParams = parseQueryParams(await props.searchParams)
 
     return (
         <div className="flex h-dvh flex-col gap-8 p-8 sm:p-16">
-            <header className="flex flex-col gap-2">
-                <h1 className="text-primary text-center text-4xl font-semibold sm:text-5xl">
+            <header className="flex flex-col items-center gap-2">
+                <h1
+                    className={classNames(
+                        'text-primary w-min text-center text-4xl font-semibold',
+                        'sm:w-auto sm:text-5xl'
+                    )}
+                >
                     localsearch assessment
                 </h1>
-                <h2 className="text-secondary text-center text-2xl font-semibold sm:text-3xl">
+                <h2
+                    className={classNames(
+                        'text-secondary text-center text-2xl font-semibold',
+                        'sm:text-3xl'
+                    )}
+                >
                     User data table
                 </h2>
                 <a
@@ -35,11 +43,7 @@ const HomePage = async (props: Props) => {
                 </a>
             </header>
             <main className="min-h-0 flex-1">
-                <UsersTable
-                    limit={100}
-                    offset={offset}
-                    searchQuery={searchQuery}
-                />
+                <UserTable {...queryParams} />
             </main>
         </div>
     )

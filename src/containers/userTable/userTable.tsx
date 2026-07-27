@@ -1,6 +1,6 @@
 import { FC, Suspense } from 'react'
 import Skeleton from '@/components/skeleton'
-import UsersTableLoader from './usersTableLoader'
+import UserTableLoader from './userTableLoader'
 
 interface Props {
     limit: number
@@ -8,7 +8,7 @@ interface Props {
     searchQuery?: string
 }
 
-const UsersTable: FC<Props> = props => (
+const UserTable: FC<Props> = props => (
     <Suspense
         fallback={
             <div className="flex h-full flex-col gap-4">
@@ -17,8 +17,8 @@ const UsersTable: FC<Props> = props => (
             </div>
         }
     >
-        <UsersTableLoader {...props} />
+        <UserTableLoader {...props} />
     </Suspense>
 )
 
-export default UsersTable
+export default UserTable

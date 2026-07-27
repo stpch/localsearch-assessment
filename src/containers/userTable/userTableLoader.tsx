@@ -1,7 +1,6 @@
-import { faker } from '@faker-js/faker'
 import { FC } from 'react'
 import DataTable from '@/containers/dataTable'
-import userRepository from '@/lib/db/repositories/userRepository'
+import userApi from '@/lib/api/userApi'
 
 interface Props {
     limit: number
@@ -9,13 +8,8 @@ interface Props {
     searchQuery?: string
 }
 
-const UsersTableLoader: FC<Props> = async props => {
-    // Artifical delay to simulate querying external database
-    await new Promise(resolve =>
-        setTimeout(resolve, faker.number.int({ max: 250, min: 100 }))
-    )
-
-    const users = userRepository.findMany(props)
+const UserTableLoader: FC<Props> = async props => {
+    const users = await userApi.fetchMany(props)
 
     return (
         <DataTable
@@ -31,4 +25,4 @@ const UsersTableLoader: FC<Props> = async props => {
     )
 }
 
-export default UsersTableLoader
+export default UserTableLoader

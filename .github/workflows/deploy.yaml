@@ -9,6 +9,7 @@ env:
   GCP_PROJECT_ID: stp-ch
   GCP_REGION: europe-west6
   SERVICE_NAME: localsearch-assessment
+  API_BASE_URL: https://localsearch-assessment-1076707828621.europe-west6.run.app/api
 
 jobs:
   test:
@@ -141,6 +142,7 @@ jobs:
           --min-instances 1 \
           --max-instances 1 \
           --port 3000 \
+          --set-env-vars API_BASE_URL=${{ env.API_BASE_URL }} \
           --allow-unauthenticated \
           --network default \
           --vpc-egress private-ranges-only \

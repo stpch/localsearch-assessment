@@ -28,14 +28,34 @@ Demo: https://localsearch-assessment-1076707828621.europe-west6.run.app
 
 ### Project structure
 
-| Directory           | Description                                            |
-|---------------------|--------------------------------------------------------|
-| `src/app`           | Next.js app router with layouts and pages.             |  
-| `src/app/api`       | REST API endpoints.                                    |  
-| `src/components`    | Presentational components with little logic.           |
-| `src/containers`    | Container components with more logic or data fetching. |
-| `src/lib`           | App-wide configuration, types, helpers, assets, etc.   |
-| `src/lib/__tests__` | Global test configuration.                             |
+| Directory        | Description                                                |
+|------------------|------------------------------------------------------------|
+| `src/app`        | Next.js app router with layouts and pages.                 |  
+| `src/app/api`    | REST API endpoints.                                        |  
+| `src/components` | Presentational components with little logic.               |
+| `src/containers` | Container components with more logic or data fetching.     |
+| `src/lib`        | App-wide configuration, types, integrations, helpers, etc. |
+
+## API
+
+In addition to the frontend, the project serves an API at `/api` to keep
+everything in the same codebase. The frontend gets its data through the page
+server component, which would normally query the database directly. Here it
+queries this API instead to simulate an external service.
+
+The base URL of the API is read from `API_BASE_URL` and defaults to
+`http://localhost:3000/api`. The deployment workflow sets it to the Cloud Run
+URL.
+
+### `GET /api/users`
+
+| Param    | Default | Description                                     |
+|----------|---------|-------------------------------------------------|
+| `limit`  | `100`   | Number of users to return, clamped to 1 – 1000. |
+| `offset` | `0`     | Number of users to skip.                        |
+| `q`      |         | Filters users by name or email.                 |
+
+Invalid or out of range values fall back to their defaults.
 
 ## Linting
 
