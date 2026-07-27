@@ -1,6 +1,5 @@
-// istanbul ignore file
-import db from '@/lib/db'
 import { QueryParams, User } from '@/lib/types'
+import db from '../db'
 
 const findMany = (params: QueryParams = {}) => {
     const limit = params.limit || -1
@@ -11,7 +10,7 @@ const findMany = (params: QueryParams = {}) => {
         ? `WHERE first_name || ' ' || last_name LIKE ? OR email LIKE ?`
         : ''
 
-    const statement = db.prepare<Array<number | string>, User>(`
+    const dataStatement = db.prepare<Array<number | string>, User>(`
         SELECT
             id,
             first_name AS firstName,
@@ -34,7 +33,7 @@ const findMany = (params: QueryParams = {}) => {
         : []
 
     return {
-        data: statement.all(...searchValues, limit, offset),
+        data: dataStatement.all(...searchValues, limit, offset),
         total: totalStatement.get(...searchValues)?.total ?? 0,
     }
 }

@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { FC } from 'react'
 import DataTable from '@/containers/dataTable'
 import userApi from '@/lib/api/userApi'

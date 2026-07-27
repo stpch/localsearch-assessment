@@ -9,7 +9,6 @@ env:
   GCP_PROJECT_ID: stp-ch
   GCP_REGION: europe-west6
   SERVICE_NAME: localsearch-assessment
-  API_BASE_URL: https://localsearch-assessment-1076707828621.europe-west6.run.app/api
 
 jobs:
   test:
@@ -116,6 +115,8 @@ jobs:
   deploy:
     needs: [test, build]
     runs-on: ubuntu-latest
+    env:
+      API_BASE_URL: https://localsearch-assessment-1076707828621.europe-west6.run.app/api
     permissions:
       contents: read
       deployments: write

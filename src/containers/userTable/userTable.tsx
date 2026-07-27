@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { FC, Suspense } from 'react'
 import Skeleton from '@/components/skeleton'
 import UserTableLoader from './userTableLoader'

@@ -75,7 +75,7 @@ const DataTable = <T,>(props: Props<T>) => {
         params.delete('offset')
 
         updateSearchParams(params)
-    }, 300)
+    }, 200)
 
     const onPreviousClick = () => {
         updateOffsetParam(Math.max(props.offset - props.limit, 0))
@@ -114,7 +114,10 @@ const DataTable = <T,>(props: Props<T>) => {
                         No results
                     </div>
                 )}
-                <LoadingOverlay visible={pending} />
+                <LoadingOverlay
+                    className="bottom-25 sm:bottom-12"
+                    visible={pending}
+                />
                 <div
                     ref={scrollAreaRef}
                     className="min-h-0 flex-1 overflow-y-auto"

@@ -1,7 +1,7 @@
 // istanbul ignore file
 import { faker } from '@faker-js/faker'
 import { NextRequest, NextResponse } from 'next/server'
-import userRepository from '@/lib/db/repositories/userRepository'
+import userRepository from '@/lib/db/userRepository'
 import parseQueryParams from '@/lib/utils/parseQueryParams'
 
 export const GET = async (request: NextRequest) => {
