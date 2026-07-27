@@ -174,17 +174,14 @@ const DataTable = <T,>(props: Props<T>) => {
                     </div>
                     <div className="flex justify-end gap-2">
                         <Button
-                            disabled={pending || props.offset <= 0}
+                            disabled={props.offset <= 0}
                             onClick={onPreviousClick}
                             type="button"
                         >
                             Previous
                         </Button>
                         <Button
-                            disabled={
-                                pending ||
-                                props.offset + props.limit >= props.total
-                            }
+                            disabled={props.offset + props.limit >= props.total}
                             onClick={onNextClick}
                             type="button"
                         >

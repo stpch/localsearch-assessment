@@ -9,8 +9,9 @@ const Button: FC<Props> = props => (
         className={classNames(
             'text-primary bg-primary/10 hover:bg-primary inline-flex min-w-24',
             'cursor-pointer items-center justify-center rounded-full px-4 py-1',
-            'text-base font-semibold tracking-wide transition-colors',
-            'hover:text-white disabled:pointer-events-none disabled:opacity-50',
+            'text-base font-semibold tracking-wide transition select-none',
+            'hover:text-white active:translate-y-px active:scale-[0.98]',
+            'disabled:pointer-events-none disabled:opacity-50',
             props.className
         )}
     />
