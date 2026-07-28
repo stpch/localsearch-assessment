@@ -20,7 +20,7 @@ Demo: https://localsearch-assessment-1076707828621.europe-west6.run.app
 | `npm run lint`          | Lint JavaScript with ESLint.                        |
 | `npm run lint:fix`      | Lint and fix JavaScript with ESLint.                |
 | `npm run stylelint`     | Lint CSS with Stylelint.                            |
-| `npm run stylelint:fix` | Fix and fix CSS with Stylelint.                     |
+| `npm run stylelint:fix` | Lint and fix CSS with Stylelint.                    |
 | `npm run typecheck`     | Check TypeScript code.                              |
 | `npm run build`         | Build app for deployment.                           |
 | `npm run clean`         | Removes build artifacts.                            |
