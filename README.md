@@ -2,7 +2,8 @@
 
 Technical assessment for full-stack role at localsearch.ch.
 
-Demo: https://localsearch-assessment-1076707828621.europe-west6.run.app
+Demo: https://localsearch-assessment-1076707828621.europe-west6.run.app \
+(Initial request might trigger a slow cold start due to instance scaling)
 
 ## Getting started
 
