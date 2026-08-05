@@ -8,7 +8,7 @@
         "clean": "npx rimraf .next coverage",
         "dev": "next dev",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
+        "lint:fix": "eslint --fix .",
         "start": "next start",
         "stylelint": "stylelint src/**/*.css",
         "stylelint:fix": "stylelint --fix src/**/*.css",
