@@ -10,8 +10,8 @@ export default defineConfig([
     ...nextVitals,
     ...nextTs,
     { settings: { react: { version: '19' } } },
-    prettierRecommended,
     reactCompiler.configs.recommended,
+    prettierRecommended,
     {
         files: ['**/*.{js,ts,tsx}'],
         plugins: {
